@@ -98,8 +98,6 @@ const EmpleadoState = (props) => {
   });
   const traerEmpleado = () => {
     getEmpleado().then((rpta) => {
-      // setClientes(rpta.data);
-      console.log(rpta.data);
       if (rpta.data) {
         let datoFormateado = rpta.data.map((objEmpleado, i) => {
           return {
