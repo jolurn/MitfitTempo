@@ -15,9 +15,10 @@ const ClientesState = (props) => {
   const [mostrarModalEditarCliente, setMostrarModalEditarCliente] = useState(
     false
   );
+  const [objClienteEditar, setObjClienteEditar] = useState(null);
   const eliminarCliente = (id) => {
     let r = window.confirm(
-      "Los cambios seán irreversibles!\n¿Seguro que deseas eliminar al Cliente?"
+      "¡Los cambios serán irreversibles!\n¿Seguro que deseas eliminar al Cliente?"
     );
     if (r === true) {
       deleteClienteById(id).then((rpta) => {
@@ -30,7 +31,6 @@ const ClientesState = (props) => {
       alert("¡Gracias por No Eliminar!");
     }
   };
-  const [objClienteEditar, setObjClienteEditar] = useState(null);
   const [datatable, setDatatable] = useState({
     columns: [
       {

@@ -1,11 +1,36 @@
 import React, { useEffect, useState } from "react";
 import EmpleadoContext from "./EmpleadoContext";
-import { getEmpleado } from "./../../../services/empleadoService";
+import {
+  deleteEmpleadoById,
+  getEmpleado,
+} from "./../../../services/empleadoService";
 
 const EmpleadoState = (props) => {
   const [sidebr, setSidebr] = useState("");
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
+  const [mostrarModalCrearEmpleado, setMostrarModalCrearEmpleado] = useState(
+    false
+  );
+  const [mostrarModalEditarEmpleado, setMostrarModalEditarEmpleado] = useState(
+    false
+  );
+  const [objEmpleadoEditar, setObjEmpleadoEditar] = useState(null);
+  const eliminarEmpleado = (id) => {
+    let r = window.confirm(
+      "¡Los cambios serán irreversibles!\n¿Seguro que deseas eliminar al Empleado?"
+    );
+    if (r === true) {
+      deleteEmpleadoById(id).then((rpta) => {
+        if (rpta.data) {
+          alert("Empleado eliminado correctamente");
+          traerEmpleado();
+        }
+      });
+    } else {
+      alert("¡Gracias por No Eliminar!");
+    }
+  };
   const [datatableEmpleado, setDatatableEmpleado] = useState({
     columns: [
       {
@@ -35,6 +60,10 @@ const EmpleadoState = (props) => {
       {
         label: "Apellido Materno",
         field: "apellidoMaterno",
+      },
+      {
+        label: "Contraseña",
+        field: "contrasena",
       },
       {
         label: "Profesion",
@@ -67,8 +96,7 @@ const EmpleadoState = (props) => {
     ],
     rows: [],
   });
-
-  useEffect(() => {
+  const traerEmpleado = () => {
     getEmpleado().then((rpta) => {
       // setClientes(rpta.data);
       console.log(rpta.data);
@@ -82,7 +110,7 @@ const EmpleadoState = (props) => {
                 <button
                   className="btn btn-colorado"
                   onClick={() => {
-                    alert("Hola jolu");
+                    eliminarEmpleado(objEmpleado.id);
                   }}
                 >
                   <i class="fas fa-trash-alt"></i>
@@ -90,7 +118,8 @@ const EmpleadoState = (props) => {
                 <button
                   className="btn btn-palido ml-2"
                   onClick={() => {
-                    alert("Hola jolu");
+                    setObjEmpleadoEditar({ ...objEmpleado });
+                    setMostrarModalEditarEmpleado(true);
                   }}
                 >
                   <i class="fas fa-pencil-alt"></i>
@@ -103,10 +132,20 @@ const EmpleadoState = (props) => {
         setCargando(false);
       }
     });
+  };
+  useEffect(() => {
+    traerEmpleado();
   }, []);
   return (
     <EmpleadoContext.Provider
       value={{
+        traerEmpleado: traerEmpleado,
+        objEmpleadoEditar: objEmpleadoEditar,
+        setObjEmpleadoEditar: setObjEmpleadoEditar,
+        mostrarModalEditarEmpleado: mostrarModalEditarEmpleado,
+        setMostrarModalEditarEmpleado: setMostrarModalEditarEmpleado,
+        mostrarModalCrearEmpleado: mostrarModalCrearEmpleado,
+        setMostrarModalCrearEmpleado: setMostrarModalCrearEmpleado,
         datatableEmpleado: datatableEmpleado,
         sidebr: sidebr,
         setSidebr: setSidebr,
