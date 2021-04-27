@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ClientesContext from "./ClientesContext";
-import { getClientes } from "./../../../services/clientesService";
+import {
+  deleteClienteById,
+  getClientes,
+} from "./../../../services/clientesService";
 
 const ClientesState = (props) => {
   const [sidebr, setSidebr] = useState("");
@@ -12,6 +15,21 @@ const ClientesState = (props) => {
   const [mostrarModalEditarCliente, setMostrarModalEditarCliente] = useState(
     false
   );
+  const eliminarCliente = (id) => {
+    let r = window.confirm(
+      "Los cambios seán irreversibles!\n¿Seguro que deseas eliminar al Cliente?"
+    );
+    if (r === true) {
+      deleteClienteById(id).then((rpta) => {
+        if (rpta.data) {
+          alert("Cliente eliminado correctamente");
+          traerClientes();
+        }
+      });
+    } else {
+      alert("¡Gracias por No Eliminar!");
+    }
+  };
   const [objClienteEditar, setObjClienteEditar] = useState(null);
   const [datatable, setDatatable] = useState({
     columns: [
@@ -75,7 +93,7 @@ const ClientesState = (props) => {
                 <button
                   className="btn btn-colorado"
                   onClick={() => {
-                    alert("Hola jolu");
+                    eliminarCliente(objClient.id);
                   }}
                 >
                   <i class="fas fa-trash-alt"></i>
