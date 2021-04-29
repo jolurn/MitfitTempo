@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
 import { postLogin } from "../../../../services/authService";
 import AuthContext from "../../context/authContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import logito from "./../../../../img/logo-gym.png";
 
-const AdminLoginPage = () => {
+const AdminLoginPage = ({ history }) => {
   const [formulario, setFormulario] = useState({
     correo: "",
     password: "",
   });
-  const history = useHistory();
+  // const history = useHistory();
   const handleChange = (e) => {
     setFormulario({
       ...formulario,
@@ -78,4 +78,4 @@ const AdminLoginPage = () => {
   );
 };
 
-export default AdminLoginPage;
+export default withRouter(AdminLoginPage);

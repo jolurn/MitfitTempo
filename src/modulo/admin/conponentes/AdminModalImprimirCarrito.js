@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   MDBContainer,
   MDBBtn,
@@ -8,6 +8,7 @@ import {
   MDBModalFooter,
 } from "mdbreact";
 import logo from "./../../../img/logo.png";
+import ReactToPrint from "react-to-print";
 
 const AdminModalImprimirCarrito = ({
   modal,
@@ -15,6 +16,9 @@ const AdminModalImprimirCarrito = ({
   datatableCarritoDeail,
 }) => {
   let SubTotal = 0;
+
+  const boletaRef = useRef();
+
   return (
     <MDBContainer>
       <MDBModal isOpen={modal} toggle={() => setModal(false)} size="lg">
@@ -22,7 +26,7 @@ const AdminModalImprimirCarrito = ({
           Boleta de Venta
         </MDBModalHeader>
         <MDBModalBody>
-          <div className="container">
+          <div className="container" ref={boletaRef}>
             <div className="col-md-12">
               <div className="invoice">
                 <div className="invoice-header">
@@ -142,7 +146,10 @@ const AdminModalImprimirCarrito = ({
           <MDBBtn className="btn-colorado" onClick={() => setModal(false)}>
             Salir
           </MDBBtn>
-          <MDBBtn className="btn-palido">Imprimir</MDBBtn>
+          <ReactToPrint
+            trigger={() => <button className="btn btn-palido">Imprimir</button>}
+            content={() => boletaRef.current}
+          />
         </MDBModalFooter>
       </MDBModal>
     </MDBContainer>
