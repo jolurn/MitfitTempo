@@ -4,6 +4,7 @@ import {
   deleteOfertaById,
   getOfertas,
 } from "./../../../services/ofertasService";
+import Swal from "sweetalert2";
 
 const OfertasState = (props) => {
   const [sidebr, setSidebr] = useState("");
@@ -15,19 +16,25 @@ const OfertasState = (props) => {
   );
   const [objOfertaEditar, setObjOfertaEditar] = useState(null);
   const eliminarOferta = (id) => {
-    let r = window.confirm(
-      "¡Los cambios serán irreversibles!\n¿Seguro que deseas eliminar al Empleado?"
-    );
-    if (r === true) {
-      deleteOfertaById(id).then((rpta) => {
-        if (rpta.data) {
-          alert("Empleado eliminado correctamente");
-          traerOferta();
-        }
-      });
-    } else {
-      alert("¡Gracias por No Eliminar!");
-    }
+    Swal.fire({
+      title: "¿Seguro que deseas eliminar la Oferta?",
+      text: "¡Los cambios serán irreversibles!",
+      showCancelButton: true,
+      icon: "error",
+    }).then((rpta) => {
+      if (rpta.isConfirmed) {
+        deleteOfertaById(id).then((rpta) => {
+          if (rpta.data) {
+            Swal.fire({
+              text: "Oferta eliminada correctamente",
+              icon: "success",
+              timer: 1500,
+            });
+            traerOferta();
+          }
+        });
+      }
+    });
   };
   const [datatableOfertas, setDatatableOfertas] = useState({
     columns: [

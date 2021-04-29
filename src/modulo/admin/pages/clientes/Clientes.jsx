@@ -24,7 +24,7 @@ const Clientes = () => {
             <h1>Clientes</h1>
             <div>
               <form className="d-flex mt-3">
-                <input
+                {/* <input
                   className="form-control mr-2"
                   type="search"
                   placeholder="Buscar"
@@ -32,7 +32,7 @@ const Clientes = () => {
                 />
                 <button className="btn btn-palido mr-2" type="submit">
                   <i class="fas fa-search"></i>
-                </button>
+                </button> */}
                 <div>
                   <MDBBtn
                     onClick={() => setMostrarModalCrearCliente(true)}

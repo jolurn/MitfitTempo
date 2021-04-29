@@ -4,6 +4,7 @@ import {
   deleteEmpleadoById,
   getEmpleado,
 } from "./../../../services/empleadoService";
+import Swal from "sweetalert2";
 
 const EmpleadoState = (props) => {
   const [sidebr, setSidebr] = useState("");
@@ -17,19 +18,25 @@ const EmpleadoState = (props) => {
   );
   const [objEmpleadoEditar, setObjEmpleadoEditar] = useState(null);
   const eliminarEmpleado = (id) => {
-    let r = window.confirm(
-      "¡Los cambios serán irreversibles!\n¿Seguro que deseas eliminar al Empleado?"
-    );
-    if (r === true) {
-      deleteEmpleadoById(id).then((rpta) => {
-        if (rpta.data) {
-          alert("Empleado eliminado correctamente");
-          traerEmpleado();
-        }
-      });
-    } else {
-      alert("¡Gracias por No Eliminar!");
-    }
+    Swal.fire({
+      title: "¿Seguro que deseas eliminar al Empleado?",
+      text: "¡Los cambios serán irreversibles!",
+      showCancelButton: true,
+      icon: "error",
+    }).then((rpta) => {
+      if (rpta.isConfirmed) {
+        deleteEmpleadoById(id).then((rpta) => {
+          if (rpta.data) {
+            Swal.fire({
+              text: "Empleado eliminado correctamente",
+              icon: "success",
+              timer: 1500,
+            });
+            traerEmpleado();
+          }
+        });
+      }
+    });
   };
   const [datatableEmpleado, setDatatableEmpleado] = useState({
     columns: [

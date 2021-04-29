@@ -4,6 +4,7 @@ import {
   deleteClienteById,
   getClientes,
 } from "./../../../services/clientesService";
+import Swal from "sweetalert2";
 
 const ClientesState = (props) => {
   const [sidebr, setSidebr] = useState("");
@@ -17,19 +18,25 @@ const ClientesState = (props) => {
   );
   const [objClienteEditar, setObjClienteEditar] = useState(null);
   const eliminarCliente = (id) => {
-    let r = window.confirm(
-      "¡Los cambios serán irreversibles!\n¿Seguro que deseas eliminar al Cliente?"
-    );
-    if (r === true) {
-      deleteClienteById(id).then((rpta) => {
-        if (rpta.data) {
-          alert("Cliente eliminado correctamente");
-          traerClientes();
-        }
-      });
-    } else {
-      alert("¡Gracias por No Eliminar!");
-    }
+    Swal.fire({
+      title: "¿Seguro que deseas eliminar al Cliente?",
+      text: "¡Los cambios serán irreversibles!",
+      showCancelButton: true,
+      icon: "error",
+    }).then((rpta) => {
+      if (rpta.isConfirmed) {
+        deleteClienteById(id).then((rpta) => {
+          if (rpta.data) {
+            Swal.fire({
+              text: "Cliente eliminado correctamente",
+              icon: "success",
+              timer: 1500,
+            });
+            traerClientes();
+          }
+        });
+      }
+    });
   };
   const [datatable, setDatatable] = useState({
     columns: [
