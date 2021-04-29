@@ -24,7 +24,6 @@ const AdminModalEditarEmpleado = ({
     putEmpleadoById(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalEditarEmpleado(false);
-        alert("¡Editó un Empleado correctamente!");
         traerEmpleado();
       }
     });

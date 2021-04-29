@@ -1,34 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { getCarritoById } from "../../../services/carritoService";
 import CarritoContext from "../context/carritoContext";
-import { MDBDataTableV5 } from "mdbreact";
+import {
+  MDBDataTableV5,
+  MDBContainer,
+  MDBBtn,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+} from "mdbreact";
+import AdminModalImprimirCarrito from "./AdminModalImprimirCarrito";
 
 const AdminModalCarritoDetalle = ({
   idCarrito,
-  setIdCarrito,
   mostrarModalCarritoDetail,
   setMostrarModalCarritoDetail,
 }) => {
   const { cargando } = useContext(CarritoContext);
-
+  const [modal, setModal] = useState(false);
   const [datatableCarritoDeail, setDatatableCarritoDetail] = useState({
     columns: [
       {
-        label: "#",
-        field: "posicion",
-      },
-      {
         label: "Id Oferta",
         field: "id",
+      },
+      {
+        label: "Hora de Inicio",
+        field: "horaDeInicio",
       },
       {
         label: "costo de la Oferta",
         field: "costo",
       },
       {
-        label: "Id Cliente",
-        field: "idCliente",
+        label: "Id Empleado",
+        field: "idEmpleado",
       },
     ],
     rows: [],
@@ -36,14 +42,11 @@ const AdminModalCarritoDetalle = ({
   const traerCarritoDetail = () => {
     getCarritoById(idCarrito).then((rpta) => {
       if (rpta.data) {
-        let datoFormateadoDetail = rpta.data.ofertas.map(
-          (objCarritoDetail, i) => {
-            return {
-              ...objCarritoDetail,
-              posicion: i + 1,
-            };
-          }
-        );
+        let datoFormateadoDetail = rpta.data.ofertas.map((objCarritoDetail) => {
+          return {
+            ...objCarritoDetail,
+          };
+        });
         setDatatableCarritoDetail({
           ...datatableCarritoDeail,
           rows: datoFormateadoDetail,
@@ -58,28 +61,52 @@ const AdminModalCarritoDetalle = ({
   }, [idCarrito]);
 
   return (
-    <MDBContainer>
-      <MDBModal
-        isOpen={mostrarModalCarritoDetail}
-        toggle={() => setMostrarModalCarritoDetail(false)}
-        size="lg"
-      >
-        <MDBModalHeader toggle={() => setMostrarModalCarritoDetail(false)}>
-          Detaller de Carrito
-        </MDBModalHeader>
-        <MDBModalBody>
-          {cargando ? (
-            <div className="alert alert-info">Cargando...</div>
-          ) : (
-            <MDBDataTableV5
-              striped
-              searching={false}
-              data={datatableCarritoDeail}
-            />
-          )}
-        </MDBModalBody>
-      </MDBModal>
-    </MDBContainer>
+    <>
+      <MDBContainer>
+        <MDBModal
+          isOpen={mostrarModalCarritoDetail}
+          toggle={() => setMostrarModalCarritoDetail(false)}
+          size="lg"
+        >
+          <MDBModalHeader toggle={() => setMostrarModalCarritoDetail(false)}>
+            Detaller de Carrito
+          </MDBModalHeader>
+          <MDBModalBody>
+            {cargando ? (
+              <div className="alert alert-info">Cargando...</div>
+            ) : (
+              <MDBDataTableV5
+                striped
+                searching={false}
+                data={datatableCarritoDeail}
+              />
+            )}
+            <div className="d-flex flex-row-reverse">
+              <MDBBtn
+                onClick={() => {
+                  setModal(true);
+                  setMostrarModalCarritoDetail(false);
+                }}
+                className="btn btn-palido"
+              >
+                Generar Boleta <i class="fas fa-file-alt"></i>
+              </MDBBtn>
+              <MDBBtn
+                onClick={() => setMostrarModalCarritoDetail(false)}
+                className="btn btn-colorado mr-2"
+              >
+                Salir
+              </MDBBtn>
+            </div>
+          </MDBModalBody>
+        </MDBModal>
+      </MDBContainer>
+      <AdminModalImprimirCarrito
+        modal={modal}
+        setModal={setModal}
+        datatableCarritoDeail={datatableCarritoDeail}
+      />
+    </>
   );
 };
 

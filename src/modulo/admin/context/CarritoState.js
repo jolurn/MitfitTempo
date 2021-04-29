@@ -16,10 +16,6 @@ const CarritoState = (props) => {
   const [datatableCarrito, setDatatableCarrito] = useState({
     columns: [
       {
-        label: "Acciones",
-        field: "accion",
-      },
-      {
         label: "#",
         field: "posicion",
       },
@@ -49,16 +45,6 @@ const CarritoState = (props) => {
           return {
             ...objCarrito,
             posicion: i + 1,
-            accion: (
-              <>
-                <MDBBtn
-                  onClick={() => alert("Listo para imprimir")}
-                  className="btn btn-colorado"
-                >
-                  <i class="fas fa-print"></i>
-                </MDBBtn>
-              </>
-            ),
             detalle: (
               <button
                 className="btn btn-palido"
@@ -67,7 +53,7 @@ const CarritoState = (props) => {
                   setMostrarModalCarritoDetail(true);
                 }}
               >
-                <i class="fas fa-indent"></i>
+                <i class="fas fa-indent"></i> Ofertas Compradas
               </button>
             ),
           };
@@ -84,7 +70,6 @@ const CarritoState = (props) => {
     <CarritoContext.Provider
       value={{
         idCarrito: idCarrito,
-        setIdCarrito: setIdCarrito,
         objCarritoEditar: objCarritoEditar,
         setObjCarritoEditar: setObjCarritoEditar,
         setMostrarModalCarritoDetail: setMostrarModalCarritoDetail,

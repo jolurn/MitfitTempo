@@ -24,7 +24,6 @@ const AdminModalEditOferta = ({
     putOfertaById(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalEditarOferta(false);
-        alert("¡Editó una Oferta correctamente!");
         traerOferta();
       }
     });

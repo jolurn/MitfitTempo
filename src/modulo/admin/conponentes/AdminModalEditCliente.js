@@ -24,7 +24,6 @@ const AdminModalEditCliente = ({
     putClienteById(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalEditarCliente(false);
-        alert("¡Editó un cliente correctamente!");
         traerClientes();
       }
     });
