@@ -10,9 +10,20 @@ import {
 } from "mdbreact";
 import logo from "./../../../../img/logo.png";
 import OfertasContext from "../../context/ofertaContext";
+import AdminModalEditOferta from "../../conponentes/AdminModalEditOferta";
+import AdminModalCrearOferta from "../../conponentes/AdminModalCrearOferta";
 
 const Ofertas = () => {
-  const { datatableOfertas, cargando } = useContext(OfertasContext);
+  const {
+    datatableOfertas,
+    cargando,
+    mostrarModalEditarOferta,
+    setMostrarModalEditarOferta,
+    objOfertaEditar,
+    traerOferta,
+    mostrarModalCrearOferta,
+    setMostrarModalCrearOferta,
+  } = useContext(OfertasContext);
 
   const [modalOfertasAdd, setModalOfertasAdd] = useState(false);
   return (
@@ -32,9 +43,14 @@ const Ofertas = () => {
                 <button className="btn btn-palido mr-2" type="submit">
                   <i class="fas fa-search"></i>
                 </button>
-                <button className="btn btn-naranja mr-2" type="button">
-                  <i class="fas fa-plus-square"></i>
-                </button>
+                <div>
+                  <MDBBtn
+                    onClick={() => setMostrarModalCrearOferta(true)}
+                    className="btn btn-naranja mr-2"
+                  >
+                    <i class="fas fa-plus-square"></i>
+                  </MDBBtn>
+                </div>
                 <div>
                   <MDBBtn
                     onClick={() => setModalOfertasAdd(true)}
@@ -200,6 +216,17 @@ const Ofertas = () => {
               </MDBModalFooter>
             </MDBModal>
           </MDBContainer>
+          <AdminModalEditOferta
+            traerOferta={traerOferta}
+            objOfertaEditar={objOfertaEditar}
+            mostrarModalEditarOferta={mostrarModalEditarOferta}
+            setMostrarModalEditarOferta={setMostrarModalEditarOferta}
+          />
+          <AdminModalCrearOferta
+            mostrarModalCrearOferta={mostrarModalCrearOferta}
+            setMostrarModalCrearOferta={setMostrarModalCrearOferta}
+            traerOferta={traerOferta}
+          />
         </div>
       </div>
     </>
