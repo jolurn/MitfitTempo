@@ -10,9 +10,20 @@ import {
 } from "mdbreact";
 import logo from "./../../../../img/logo.png";
 import EmpleadoContext from "../../context/EmpleadoContext";
+import AdminModalEditarEmpleado from "../../conponentes/AdminModalEditarEmpleado";
+import AdminModalCrearEmpleado from "../../conponentes/AdminModalCrearEmpleado";
 
 const Empleado = () => {
-  const { datatableEmpleado, cargando } = useContext(EmpleadoContext);
+  const {
+    datatableEmpleado,
+    cargando,
+    mostrarModalEditarEmpleado,
+    setMostrarModalEditarEmpleado,
+    objEmpleadoEditar,
+    traerEmpleado,
+    mostrarModalCrearEmpleado,
+    setMostrarModalCrearEmpleado,
+  } = useContext(EmpleadoContext);
   const [modalEmpleadoAdd, setModalEmpleadoAdd] = useState(false);
   return (
     <>
@@ -31,9 +42,14 @@ const Empleado = () => {
                 <button className="btn btn-palido mr-2" type="submit">
                   <i class="fas fa-search"></i>
                 </button>
-                <button className="btn btn-naranja mr-2" type="button">
-                  <i class="fas fa-plus-square"></i>
-                </button>
+                <div>
+                  <MDBBtn
+                    onClick={() => setMostrarModalCrearEmpleado(true)}
+                    className="btn btn-naranja mr-2"
+                  >
+                    <i class="fas fa-plus-square"></i>
+                  </MDBBtn>
+                </div>
                 <div>
                   <MDBBtn
                     onClick={() => setModalEmpleadoAdd(true)}
@@ -199,6 +215,17 @@ const Empleado = () => {
               </MDBModalFooter>
             </MDBModal>
           </MDBContainer>
+          <AdminModalEditarEmpleado
+            traerEmpleado={traerEmpleado}
+            objEmpleadoEditar={objEmpleadoEditar}
+            mostrarModalEditarEmpleado={mostrarModalEditarEmpleado}
+            setMostrarModalEditarEmpleado={setMostrarModalEditarEmpleado}
+          />
+          <AdminModalCrearEmpleado
+            mostrarModalCrearEmpleado={mostrarModalCrearEmpleado}
+            setMostrarModalCrearEmpleado={setMostrarModalCrearEmpleado}
+            traerEmpleado={traerEmpleado}
+          />
         </div>
       </div>
     </>

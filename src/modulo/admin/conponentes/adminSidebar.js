@@ -1,13 +1,11 @@
 import React, { useContext } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import ClientesContext from "../context/ClientesContext";
+import Carrito from "../pages/carrito/Carrito";
 import Empleado from "../pages/empleado/AdminEmpleadoPage";
 import Ofertas from "../pages/ofertas/AdminOfertasPage";
 import FotoPerfil from "./../../../img/jolu.jpg";
-// import Empleado from "";
-// import Ofertas from "";
-// import Ventas from "";
-// import Home from "";
+
 import Cliente from "./../pages/clientes/AdminClientesPage";
 
 const AdminSidebar = () => {
@@ -47,9 +45,9 @@ const AdminSidebar = () => {
           <li onClick={cerrarMenu}>
             <Link to="/admin/ofertas">Ofertas</Link>
           </li>
-          {/* <li onClick={cerrarMenu}>
-            <Link to="/ventas">Venta</Link>
-          </li> */}
+          <li onClick={cerrarMenu}>
+            <Link to="/admin/carrito">Carrito</Link>
+          </li>
         </ul>
         <ul className="list-unstyled CTAs">
           <li>
@@ -68,8 +66,8 @@ const AdminSidebar = () => {
         <Route path="/clientes" component={Cliente} />
         <Route path="/empleado" component={Empleado} />
         <Route path="/ofertas" component={Ofertas} />
-        {/* <Route path="/ventas" component={Ventas} />
-        <Route path="/" component={Home} /> */}
+        <Route path="/carrito" component={Carrito} />
+        {/* <Route path="/" component={Home} /> */}
       </Switch>
       <div className={sombr} id="sombr"></div>
     </>

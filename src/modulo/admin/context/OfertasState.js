@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from "react";
 import OfertasContext from "./ofertaContext";
-import { getOfertas } from "./../../../services/ofertasService";
+import {
+  deleteOfertaById,
+  getOfertas,
+} from "./../../../services/ofertasService";
 
 const OfertasState = (props) => {
   const [sidebr, setSidebr] = useState("");
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
+  const [mostrarModalCrearOferta, setMostrarModalCrearOferta] = useState(false);
+  const [mostrarModalEditarOferta, setMostrarModalEditarOferta] = useState(
+    false
+  );
+  const [objOfertaEditar, setObjOfertaEditar] = useState(null);
+  const eliminarOferta = (id) => {
+    let r = window.confirm(
+      "¡Los cambios serán irreversibles!\n¿Seguro que deseas eliminar al Empleado?"
+    );
+    if (r === true) {
+      deleteOfertaById(id).then((rpta) => {
+        if (rpta.data) {
+          alert("Empleado eliminado correctamente");
+          traerOferta();
+        }
+      });
+    } else {
+      alert("¡Gracias por No Eliminar!");
+    }
+  };
   const [datatableOfertas, setDatatableOfertas] = useState({
     columns: [
       {
@@ -21,26 +44,21 @@ const OfertasState = (props) => {
         field: "dniEmpleado",
       },
       {
-        label: "Dia De Oferta",
+        label: "Día de Oferta",
         field: "diaDeOferta",
       },
       {
-        label: "Hora De Inicio",
+        label: "Hora de Inicio",
         field: "horaDeInicio",
       },
       {
         label: "Costo",
         field: "costo",
       },
-      {
-        label: "Dni Cliente",
-        field: "dniCliente",
-      },
     ],
     rows: [],
   });
-
-  useEffect(() => {
+  const traerOferta = () => {
     getOfertas().then((rpta) => {
       if (rpta.data) {
         let datoFormateado = rpta.data.map((objOfertas, i) => {
@@ -52,7 +70,7 @@ const OfertasState = (props) => {
                 <button
                   className="btn btn-colorado"
                   onClick={() => {
-                    alert("Hola jolu");
+                    eliminarOferta(objOfertas.id);
                   }}
                 >
                   <i class="fas fa-trash-alt"></i>
@@ -60,7 +78,8 @@ const OfertasState = (props) => {
                 <button
                   className="btn btn-palido ml-2"
                   onClick={() => {
-                    alert("Hola jolu");
+                    setObjOfertaEditar({ ...objOfertas });
+                    setMostrarModalEditarOferta(true);
                   }}
                 >
                   <i class="fas fa-pencil-alt"></i>
@@ -73,10 +92,20 @@ const OfertasState = (props) => {
         setCargando(false);
       }
     });
+  };
+  useEffect(() => {
+    traerOferta();
   }, []);
   return (
     <OfertasContext.Provider
       value={{
+        traerOferta: traerOferta,
+        objOfertaEditar: objOfertaEditar,
+        setObjOfertaEditar: setObjOfertaEditar,
+        mostrarModalEditarOferta: mostrarModalEditarOferta,
+        setMostrarModalEditarOferta: setMostrarModalEditarOferta,
+        mostrarModalCrearOferta: mostrarModalCrearOferta,
+        setMostrarModalCrearOferta: setMostrarModalCrearOferta,
         datatableOfertas: datatableOfertas,
         sidebr: sidebr,
         setSidebr: setSidebr,

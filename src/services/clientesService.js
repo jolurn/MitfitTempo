@@ -7,7 +7,6 @@ export const getClientes = async () => {
   return rpta;
 };
 export const putClienteById = async (objCliente) => {
-  console.log(objCliente.id);
   const rpta = await axios.put(
     `${URL_BACKEND}/cliente/${objCliente.id}`,
     JSON.stringify(objCliente),

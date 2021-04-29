@@ -13,39 +13,49 @@ import AdminEmpleadoPage from "./pages/empleado/AdminEmpleadoPage";
 import AdminOfertasPage from "./pages/ofertas/AdminOfertasPage";
 import EmpleadoState from "./context/EmpleadoState";
 import OfertasState from "./context/OfertasState";
+import AdminCarritoPage from "./pages/carrito/AdminCarritoPage";
+import CarritoState from "./context/CarritoState";
 const AdminRouter = () => {
   return (
     <AuthState>
-      <OfertasState>
-        <EmpleadoState>
-          <ClientesState>
-            <AdminSidebar />
-            <Switch>
-              <PrivateRoute path="/admin/clientes">
-                <div id="content">
-                  <Navbar />
-                  <AdminClientesPage />
-                </div>
-              </PrivateRoute>
-              <PrivateRoute path="/admin/empleado">
-                <div id="content">
-                  <Navbar />
-                  <AdminEmpleadoPage />
-                </div>
-              </PrivateRoute>
-              <PrivateRoute path="/admin/ofertas">
-                <div id="content">
-                  <Navbar />
-                  <AdminOfertasPage />
-                </div>
-              </PrivateRoute>
-              <Route path="/admin/">
-                <AdminLoginPage />
-              </Route>
-            </Switch>
-          </ClientesState>
-        </EmpleadoState>
-      </OfertasState>
+      <CarritoState>
+        <OfertasState>
+          <EmpleadoState>
+            <ClientesState>
+              <AdminSidebar />
+              <Switch>
+                <PrivateRoute path="/admin/clientes">
+                  <div id="content">
+                    <Navbar />
+                    <AdminClientesPage />
+                  </div>
+                </PrivateRoute>
+                <PrivateRoute path="/admin/empleado">
+                  <div id="content">
+                    <Navbar />
+                    <AdminEmpleadoPage />
+                  </div>
+                </PrivateRoute>
+                <PrivateRoute path="/admin/ofertas">
+                  <div id="content">
+                    <Navbar />
+                    <AdminOfertasPage />
+                  </div>
+                </PrivateRoute>
+                <PrivateRoute path="/admin/carrito">
+                  <div id="content">
+                    <Navbar />
+                    <AdminCarritoPage />
+                  </div>
+                </PrivateRoute>
+                <Route path="/admin/">
+                  <AdminLoginPage />
+                </Route>
+              </Switch>
+            </ClientesState>
+          </EmpleadoState>
+        </OfertasState>
+      </CarritoState>
     </AuthState>
   );
 };

@@ -43,9 +43,6 @@ const Clientes = () => {
                 <button className="btn btn-palido mr-2" type="submit">
                   <i class="fas fa-search"></i>
                 </button>
-                {/* <button className="btn btn-naranja mr-2" type="button">
-                  <i class="fas fa-plus-square"></i>
-                </button> */}
                 <div>
                   <MDBBtn
                     onClick={() => setMostrarModalCrearCliente(true)}

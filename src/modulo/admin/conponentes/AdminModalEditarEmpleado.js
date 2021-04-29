@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
-import { putClienteById } from "../../../services/clientesService";
+import { putEmpleadoById } from "../../../services/empleadoService";
 
-const AdminModalEditCliente = ({
-  mostrarModalEditarCliente,
-  setMostrarModalEditarCliente,
-  objClienteEditar,
-  traerClientes,
+const AdminModalEditarEmpleado = ({
+  mostrarModalEditarEmpleado,
+  setMostrarModalEditarEmpleado,
+  objEmpleadoEditar,
+  traerEmpleado,
 }) => {
-  const [formulario, setFormulario] = useState(objClienteEditar);
+  const [formulario, setFormulario] = useState(objEmpleadoEditar);
   const handleChange = (e) => {
     setFormulario({
       ...formulario,
@@ -16,28 +16,28 @@ const AdminModalEditCliente = ({
     });
   };
   useEffect(() => {
-    setFormulario({ ...objClienteEditar });
-  }, [objClienteEditar]);
+    setFormulario({ ...objEmpleadoEditar });
+  }, [objEmpleadoEditar]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    putClienteById(formulario).then((rpta) => {
+    putEmpleadoById(formulario).then((rpta) => {
       if (rpta.data) {
-        setMostrarModalEditarCliente(false);
-        alert("¡Editó un cliente correctamente!");
-        traerClientes();
+        setMostrarModalEditarEmpleado(false);
+        alert("¡Editó un Empleado correctamente!");
+        traerEmpleado();
       }
     });
   };
   return (
     <MDBContainer>
       <MDBModal
-        isOpen={mostrarModalEditarCliente}
-        toggle={() => setMostrarModalEditarCliente(false)}
+        isOpen={mostrarModalEditarEmpleado}
+        toggle={() => setMostrarModalEditarEmpleado(false)}
         size="lg"
       >
-        <MDBModalHeader toggle={() => setMostrarModalEditarCliente(false)}>
-          Editar Cliente
+        <MDBModalHeader toggle={() => setMostrarModalEditarEmpleado(false)}>
+          Editar Empleado
         </MDBModalHeader>
         <MDBModalBody>
           {formulario ? (
@@ -118,37 +118,76 @@ const AdminModalEditCliente = ({
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="input_LinkFoto">Link de Foto</label>
+                  <label for="input_Contraseña">Contraseña</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="input_LinkFoto"
-                    placeholder="Ejm: https://n9.cl/bq2lk"
-                    value={formulario.foto}
-                    name="foto"
+                    id="input_Contraseña"
+                    placeholder="Ejm: xxxxx"
+                    value={formulario.contrasena}
+                    name="contrasena"
                     onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label for="input__Correo">Correo</label>
+                  <label for="input_Profesion">Profesión</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="input__Correo"
-                    placeholder="Ejm: jramosn@uni.edu.pe"
-                    value={formulario.correo}
-                    name="correo"
+                    id="input_Profesion"
+                    placeholder="Ejm: https://n9.cl/bq2lk"
+                    value={formulario.profesion}
+                    name="profesion"
                     onChange={handleChange}
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="input__Celular">Celular</label>
+                  <label for="input_LinkFoto">Link de Foto</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="input__Celular"
+                    id="input_LinkFoto"
+                    placeholder="Ejm: https://n9.cl/bq2lk"
+                    value={formulario.linkFoto}
+                    name="linkFoto"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Text__Descripcion">Descripción de tu trabajo</label>
+                <textarea
+                  rows="3"
+                  type="text"
+                  className="form-control"
+                  id="Text__Descripcion"
+                  placeholder="Ejm: 970318010"
+                  value={formulario.descripcion}
+                  name="descripcion"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label for="input_Correo">Correo</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="input_Correo"
+                    placeholder="Ejm: https://n9.cl/bq2lk"
+                    value={formulario.correo}
+                    name="linkFoto"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label for="Text__Celular">Celular</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="Text__Celular"
                     placeholder="Ejm: 970318010"
                     value={formulario.celular}
                     name="celular"
@@ -156,17 +195,31 @@ const AdminModalEditCliente = ({
                   />
                 </div>
               </div>
-              <div className="form-group">
-                <label for="input__Direccion">Direción</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="input__Direccion"
-                  placeholder="Ejm: Mz f3 lt4 10 de Octubre II Etapa San Juan de Lurigancho Lima"
-                  value={formulario.direccion}
-                  name="direccion"
-                  onChange={handleChange}
-                />
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label for="input__Direccion">Direción</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="input__Direccion"
+                    placeholder="Ejm: Mz f3 lt4 10 de Octubre II Etapa San Juan de Lurigancho Lima"
+                    value={formulario.direccion}
+                    name="direccion"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label for="Text__Distrito">Distrito</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="Text__Distrito"
+                    placeholder="Ejm: 970318010"
+                    value={formulario.distrito}
+                    name="distrito"
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
               <div className="form-group d-flex flex-row-reverse">
                 <button className="btn btn-palido" type="submit">
@@ -174,7 +227,7 @@ const AdminModalEditCliente = ({
                 </button>
                 <button
                   className="btn btn-colorado mr-2"
-                  onClick={() => setMostrarModalEditarCliente(false)}
+                  onClick={() => setMostrarModalEditarEmpleado(false)}
                 >
                   Salir
                 </button>
@@ -187,4 +240,4 @@ const AdminModalEditCliente = ({
   );
 };
 
-export default AdminModalEditCliente;
+export default AdminModalEditarEmpleado;
