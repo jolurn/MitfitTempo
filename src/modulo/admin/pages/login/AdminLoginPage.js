@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { postLogin } from "../../../../services/authService";
 import AuthContext from "../../context/authContext";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import logito from "./../../../../img/logo-gym.png";
 
 const AdminLoginPage = ({ history }) => {
@@ -9,7 +9,7 @@ const AdminLoginPage = ({ history }) => {
     correo: "",
     password: "",
   });
-  // const history = useHistory();
+
   const handleChange = (e) => {
     setFormulario({
       ...formulario,
@@ -23,7 +23,7 @@ const AdminLoginPage = ({ history }) => {
       if (rpta.data.ok) {
         //informar la contexto que hemos iniciado sesion
         iniciarSesionContext(rpta.data.token);
-        history.push("/admin/clientes");
+        history.push("/admin/dashboard");
       }
     });
   };

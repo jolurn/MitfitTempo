@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { postEmpleado } from "../../../services/empleadoService";
-
+import Swal from "sweetalert2";
 const formularioVacio = {
   dni: "",
   primerNombre: "",
@@ -35,8 +35,12 @@ const AdminModalCrearEmpleado = ({
     postEmpleado(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalCrearEmpleado(false);
-        alert("¡Creó un Empleado correctamente!");
         setFormulario(formularioVacio);
+        Swal.fire({
+          text: "Empleado registrado correctamente",
+          icon: "success",
+          timer: 2000,
+        });
         traerEmpleado();
       }
     });

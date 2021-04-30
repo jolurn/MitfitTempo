@@ -14,6 +14,7 @@ const AuthState = (props) => {
     const playloadString = token.split(".")[1];
     const payloadStringDecript = atob(playloadString); //desencripta cual quier algoritmo en base 64
     const playloadJson = JSON.parse(payloadStringDecript);
+
     setState({
       autenticado: true,
       usu_nom: playloadJson.usu_nom,

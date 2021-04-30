@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { postCliente } from "../../../services/clientesService";
-
+import Swal from "sweetalert2";
 const formularioVacio = {
   dni: "",
   primerNombre: "",
@@ -32,8 +32,12 @@ const AdminModalCrearCliente = ({
     postCliente(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalCrearCliente(false);
-        alert("¡Creó un Cliente correctamente!");
         setFormulario(formularioVacio);
+        Swal.fire({
+          text: "Cliente registrado correctamente",
+          icon: "success",
+          timer: 2000,
+        });
         traerClientes();
       }
     });

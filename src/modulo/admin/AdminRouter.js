@@ -15,6 +15,7 @@ import EmpleadoState from "./context/EmpleadoState";
 import OfertasState from "./context/OfertasState";
 import AdminCarritoPage from "./pages/carrito/AdminCarritoPage";
 import CarritoState from "./context/CarritoState";
+import AdminDashboardPages from "./pages/Dashboard/AdminDashboardPages";
 const AdminRouter = () => {
   return (
     <AuthState>
@@ -46,6 +47,12 @@ const AdminRouter = () => {
                   <div id="content">
                     <Navbar />
                     <AdminCarritoPage />
+                  </div>
+                </PrivateRoute>
+                <PrivateRoute path="/admin/dashboard">
+                  <div id="content">
+                    <Navbar />
+                    <AdminDashboardPages />
                   </div>
                 </PrivateRoute>
                 <Route path="/admin/">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { postOferta } from "../../../services/ofertasService";
-
+import Swal from "sweetalert2";
 const formularioVacio = {
   dniEmpleado: "",
   diaDeOferta: "",
@@ -26,8 +26,12 @@ const AdminModalCrearOferta = ({
     postOferta(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalCrearOferta(false);
-        alert("¡Creó una Oferta correctamente!");
         setFormulario(formularioVacio);
+        Swal.fire({
+          text: "Oferta registrado correctamente",
+          icon: "success",
+          timer: 2000,
+        });
         traerOferta();
       }
     });

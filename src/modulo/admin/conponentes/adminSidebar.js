@@ -1,17 +1,26 @@
 import React, { useContext } from "react";
 import { Route, Link, Switch } from "react-router-dom";
+import AuthContext from "../context/authContext";
 import ClientesContext from "../context/ClientesContext";
 import Carrito from "../pages/carrito/Carrito";
+import Dashboard from "../pages/Dashboard/Dashboard";
 import Empleado from "../pages/empleado/AdminEmpleadoPage";
 import Ofertas from "../pages/ofertas/AdminOfertasPage";
 import FotoPerfil from "./../../../img/jolu.jpg";
+import FotoPerfil2 from "./../../../img/perfil.jpg";
 
 import Cliente from "./../pages/clientes/AdminClientesPage";
 
 const AdminSidebar = () => {
+  const { ...state } = useContext(AuthContext);
   const { sidebr, setSidebr } = useContext(ClientesContext);
   const { sombr, setSombr } = useContext(ClientesContext);
-
+  let foto;
+  if (state.usu_nom === "Jorge Luis Ramos Nolasco") {
+    foto = FotoPerfil;
+  } else {
+    foto = FotoPerfil2;
+  }
   const cerrarMenu = (e) => {
     e.preventDefault();
     setSidebr("");
@@ -27,12 +36,12 @@ const AdminSidebar = () => {
           <h3>MyFit Tempo</h3>
         </div>
         <div className="d-flex justify-content-center">
-          <img src={FotoPerfil} alt="" className="img__perfil" />
+          <img src={foto} alt="" className="img__perfil" />
         </div>
         <ul className="list-unstyled components">
-          <p>Jorge Luis Ramos Nolasco</p>
-          <li className="active">
-            <Link to="/" aria-expanded="false">
+          <p>{state.usu_nom}</p>
+          <li onClick={cerrarMenu} className="active">
+            <Link to="/admin/dashboard" aria-expanded="false">
               Home
             </Link>
           </li>
@@ -67,6 +76,7 @@ const AdminSidebar = () => {
         <Route path="/empleado" component={Empleado} />
         <Route path="/ofertas" component={Ofertas} />
         <Route path="/carrito" component={Carrito} />
+        <Route path="/dashboard" component={Dashboard} />
         {/* <Route path="/" component={Home} /> */}
       </Switch>
       <div className={sombr} id="sombr"></div>
