@@ -10,6 +10,7 @@ const EmpleadoState = (props) => {
   const [sidebr, setSidebr] = useState("");
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
+  const [totalEmpleados, setTotalEmpleados] = useState(0);
   const [mostrarModalCrearEmpleado, setMostrarModalCrearEmpleado] = useState(
     false
   );
@@ -107,6 +108,7 @@ const EmpleadoState = (props) => {
     getEmpleado().then((rpta) => {
       if (rpta.data) {
         let datoFormateado = rpta.data.map((objEmpleado, i) => {
+          setTotalEmpleados(i + 1);
           return {
             ...objEmpleado,
             posicion: i + 1,
@@ -144,6 +146,7 @@ const EmpleadoState = (props) => {
   return (
     <EmpleadoContext.Provider
       value={{
+        totalEmpleados: totalEmpleados,
         traerEmpleado: traerEmpleado,
         objEmpleadoEditar: objEmpleadoEditar,
         setObjEmpleadoEditar: setObjEmpleadoEditar,

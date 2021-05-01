@@ -10,6 +10,7 @@ const OfertasState = (props) => {
   const [sidebr, setSidebr] = useState("");
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
+  const [totalOfertas, setTotalOfertas] = useState(0);
   const [mostrarModalCrearOferta, setMostrarModalCrearOferta] = useState(false);
   const [mostrarModalEditarOferta, setMostrarModalEditarOferta] = useState(
     false
@@ -69,6 +70,7 @@ const OfertasState = (props) => {
     getOfertas().then((rpta) => {
       if (rpta.data) {
         let datoFormateado = rpta.data.map((objOfertas, i) => {
+          setTotalOfertas(i + 1);
           return {
             ...objOfertas,
             posicion: i + 1,
@@ -106,6 +108,7 @@ const OfertasState = (props) => {
   return (
     <OfertasContext.Provider
       value={{
+      totalOfertas: totalOfertas,
         traerOferta: traerOferta,
         objOfertaEditar: objOfertaEditar,
         setObjOfertaEditar: setObjOfertaEditar,

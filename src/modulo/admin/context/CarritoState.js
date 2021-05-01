@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { getCarrito } from "../../../services/carritoService";
 import CarritoContext from "./carritoContext";
 import { MDBBtn } from "mdbreact";
+import { map } from "jquery";
 
 const CarritoState = (props) => {
   const [sidebr, setSidebr] = useState("");
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
   const [idCarrito, setIdCarrito] = useState(0);
+  const [ingresosTotales, setIngresosTotales] = useState(0);
   const [mostrarModalCarritoDetail, setMostrarModalCarritoDetail] = useState(
     false
   );
+
   const [objCarritoEditar, setObjCarritoEditar] = useState(null);
 
   const [datatableCarrito, setDatatableCarrito] = useState({
@@ -59,16 +62,20 @@ const CarritoState = (props) => {
           };
         });
         setDatatableCarrito({ ...datatableCarrito, rows: datoFormateado });
+
         setCargando(false);
       }
     });
   };
+
   useEffect(() => {
     traerCarrito();
   }, []);
   return (
     <CarritoContext.Provider
       value={{
+        ingresosTotales: ingresosTotales,
+        setIngresosTotales: setIngresosTotales,
         idCarrito: idCarrito,
         objCarritoEditar: objCarritoEditar,
         setObjCarritoEditar: setObjCarritoEditar,

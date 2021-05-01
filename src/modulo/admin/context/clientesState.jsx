@@ -10,6 +10,7 @@ const ClientesState = (props) => {
   const [sidebr, setSidebr] = useState("");
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
+  const [totalCliente, setTotalCliente] = useState(0);
   const [mostrarModalCrearCliente, setMostrarModalCrearCliente] = useState(
     false
   );
@@ -92,6 +93,7 @@ const ClientesState = (props) => {
     getClientes().then((rpta) => {
       if (rpta.data) {
         let datoFormateado = rpta.data.map((objClient, i) => {
+          setTotalCliente(i + 1);
           return {
             ...objClient,
             posicion: i + 1,
@@ -129,6 +131,7 @@ const ClientesState = (props) => {
   return (
     <ClientesContext.Provider
       value={{
+        totalCliente: totalCliente,
         mostrarModalCrearCliente: mostrarModalCrearCliente,
         setMostrarModalCrearCliente: setMostrarModalCrearCliente,
         traerClientes: traerClientes,

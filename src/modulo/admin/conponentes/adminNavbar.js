@@ -34,7 +34,7 @@ const AdminNavbar = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="nav navbar-nav ml-auto">
+            <ul className="nav navbar-nav ml-auto ">
               <h2>
                 MyFit Tempo <i class="fas fa-dumbbell"></i>
               </h2>

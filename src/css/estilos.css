@@ -216,6 +216,18 @@ a.download {
   background-color: #fece7a;
   color: #ffff;
 }
+.dash-card-colorado {
+  color: #ff5e59;
+}
+.dash-card-naranjas {
+  color: #ffbb37;
+}
+.dash-card-palido {
+  color: #fece7a;
+}
+.dash-card-oscuro {
+  color: #1e1b24;
+}
 .btn-colorado {
   background-color: #ff5e59;
   color: #ffff;
