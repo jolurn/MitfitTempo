@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { putClienteById } from "../../../services/clientesService";
+import Swal from "sweetalert2";
 
 const AdminModalEditCliente = ({
   mostrarModalEditarCliente,
@@ -24,6 +25,11 @@ const AdminModalEditCliente = ({
     putClienteById(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalEditarCliente(false);
+        Swal.fire({
+          text: "Cliente editado correctamente",
+          icon: "success",
+          timer: 2000,
+        });
         traerClientes();
       }
     });

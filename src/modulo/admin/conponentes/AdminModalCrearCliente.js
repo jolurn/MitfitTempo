@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { postCliente } from "../../../services/clientesService";
 import Swal from "sweetalert2";

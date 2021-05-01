@@ -7,7 +7,6 @@ const CarritoState = (props) => {
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
   const [idCarrito, setIdCarrito] = useState(0);
-  const [ingresosTotales, setIngresosTotales] = useState(0);
   const [mostrarModalCarritoDetail, setMostrarModalCarritoDetail] = useState(
     false
   );
@@ -72,7 +71,6 @@ const CarritoState = (props) => {
   return (
     <CarritoContext.Provider
       value={{
-        setIngresosTotales: setIngresosTotales,
         idCarrito: idCarrito,
         objCarritoEditar: objCarritoEditar,
         setObjCarritoEditar: setObjCarritoEditar,

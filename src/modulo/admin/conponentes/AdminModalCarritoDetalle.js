@@ -16,7 +16,7 @@ const AdminModalCarritoDetalle = ({
   mostrarModalCarritoDetail,
   setMostrarModalCarritoDetail,
 }) => {
-  const { cargando } = useContext(CarritoContext);
+  const { cargando, setCargando } = useContext(CarritoContext);
   const [modal, setModal] = useState(false);
   const [datatableCarritoDeail, setDatatableCarritoDetail] = useState({
     columns: [
@@ -51,7 +51,7 @@ const AdminModalCarritoDetalle = ({
           ...datatableCarritoDeail,
           rows: datoFormateadoDetail,
         });
-        // setCargando(false);
+        setCargando(false);
       }
     });
   };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { putOfertaById } from "../../../services/ofertasService";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
+import Swal from "sweetalert2";
 
 const AdminModalEditOferta = ({
   mostrarModalEditarOferta,
@@ -24,6 +25,11 @@ const AdminModalEditOferta = ({
     putOfertaById(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalEditarOferta(false);
+        Swal.fire({
+          text: "Oferta editada correctamente",
+          icon: "success",
+          timer: 2000,
+        });
         traerOferta();
       }
     });

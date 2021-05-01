@@ -21,17 +21,7 @@ const Carrito = () => {
           <div className="col-md-12 d-flex justify-content-between">
             <h1>Carrito</h1>
             <div>
-              <form className="d-flex mt-3">
-                {/* <input
-                  className="form-control mr-2"
-                  type="search"
-                  placeholder="Buscar"
-                  aria-label="Search"
-                />
-                <button className="btn btn-palido mr-2" type="submit">
-                  <i class="fas fa-search"></i>
-                </button> */}
-              </form>
+              <form className="d-flex mt-3"></form>
             </div>
           </div>
 

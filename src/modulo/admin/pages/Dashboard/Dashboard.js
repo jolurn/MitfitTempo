@@ -38,7 +38,7 @@ const Dashboard = () => {
               <div className="card-header text-center">Total de Clientes</div>
               <div className="card-body text-center dash-card-palido">
                 <span className="display-4">
-                  {totalCliente} <i class="fas fa-male"></i>
+                  {totalCliente} <i className="fas fa-male"></i>
                 </span>
               </div>
             </div>
@@ -48,7 +48,7 @@ const Dashboard = () => {
               <div className="card-header text-center">Total de Empleados </div>
               <div className="card-body text-center dash-card-naranjas">
                 <span className="display-4">
-                  {totalEmpleados} <i class="fas fa-briefcase"></i>
+                  {totalEmpleados} <i className="fas fa-briefcase"></i>
                 </span>
               </div>
             </div>

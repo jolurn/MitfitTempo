@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { MDBDataTableV5, MDBBtn } from "mdbreact";
 import EmpleadoContext from "../../context/EmpleadoContext";
 import AdminModalEditarEmpleado from "../../conponentes/AdminModalEditarEmpleado";
@@ -23,21 +23,12 @@ const Empleado = () => {
             <h1>Empleado</h1>
             <div>
               <form className="d-flex mt-3">
-                {/* <input
-                  className="form-control mr-2"
-                  type="search"
-                  placeholder="Buscar"
-                  aria-label="Search"
-                />
-                <button className="btn btn-palido mr-2" type="submit">
-                  <i class="fas fa-search"></i>
-                </button> */}
                 <div>
                   <MDBBtn
                     onClick={() => setMostrarModalCrearEmpleado(true)}
                     className="btn btn-naranja mr-2"
                   >
-                    <i class="fas fa-plus-square"></i>
+                    <i className="fas fa-plus-square"></i>
                   </MDBBtn>
                 </div>
               </form>

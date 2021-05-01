@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { putEmpleadoById } from "../../../services/empleadoService";
+import Swal from "sweetalert2";
 
 const AdminModalEditarEmpleado = ({
   mostrarModalEditarEmpleado,
@@ -24,6 +25,11 @@ const AdminModalEditarEmpleado = ({
     putEmpleadoById(formulario).then((rpta) => {
       if (rpta.data) {
         setMostrarModalEditarEmpleado(false);
+        Swal.fire({
+          text: "Empleado editado correctamente",
+          icon: "success",
+          timer: 2000,
+        });
         traerEmpleado();
       }
     });
