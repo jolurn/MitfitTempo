@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getCarrito } from "../../../services/carritoService";
 import CarritoContext from "./carritoContext";
-import { MDBBtn } from "mdbreact";
-import { map } from "jquery";
 
 const CarritoState = (props) => {
   const [sidebr, setSidebr] = useState("");
@@ -74,7 +72,6 @@ const CarritoState = (props) => {
   return (
     <CarritoContext.Provider
       value={{
-        ingresosTotales: ingresosTotales,
         setIngresosTotales: setIngresosTotales,
         idCarrito: idCarrito,
         objCarritoEditar: objCarritoEditar,

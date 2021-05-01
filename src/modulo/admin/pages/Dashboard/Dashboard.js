@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getCarrito } from "../../../../services/carritoService";
-import CarritoContext from "../../context/carritoContext";
+
 import ClientesContext from "../../context/ClientesContext";
 import EmpleadoContext from "../../context/EmpleadoContext";
 import OfertasContext from "../../context/ofertaContext";
@@ -9,25 +9,18 @@ const Dashboard = () => {
   const { totalCliente } = useContext(ClientesContext);
   const { totalEmpleados } = useContext(EmpleadoContext);
   const { totalOfertas } = useContext(OfertasContext);
-  const { ingresosTotales } = useContext(CarritoContext);
-
-  getCarrito().then((rpta) => {
-    let suma = 0;
-    let suma2 = 0;
-
-    console.log(rpta.data);
-    console.log(rpta.data[0].ofertas);
-
-    console.log("----------");
-
-    rpta.data.map((objCarrito, i) => {
-      objCarrito.ofertas.map((objCostos, i) => {
-        suma2 += parseInt(objCostos.costo);
+  const [totalIngresos, setTotalIngreso] = useState(0);
+  let suma = 0;
+  useEffect(() => {
+    getCarrito().then((rpta) => {
+      rpta.data.map((objCarrito) => {
+        objCarrito.ofertas.map((objCostos) => {
+          suma += +objCostos.costo;
+          setTotalIngreso(suma);
+        });
       });
     });
-
-    console.log("El costo ttotal es: " + suma2);
-  });
+  }, []);
 
   return (
     <>
@@ -77,7 +70,7 @@ const Dashboard = () => {
               <div className="card-header text-center">Total de Ingresos</div>
               <div className="card-body text-center ">
                 <p className="display-1 dash-card-oscuro">
-                  S/. <span>{ingresosTotales}</span>
+                  S/. <span>{totalIngresos}</span>
                 </p>
               </div>
             </div>
