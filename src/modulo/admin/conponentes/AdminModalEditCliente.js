@@ -179,6 +179,7 @@ const AdminModalEditCliente = ({
                 </button>
                 <button
                   className="btn btn-colorado mr-2"
+                  type="button"
                   onClick={() => setMostrarModalEditarCliente(false)}
                 >
                   Salir

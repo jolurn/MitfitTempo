@@ -176,6 +176,7 @@ const AdminModalCrearCliente = ({
               </button>
               <button
                 className="btn btn-colorado mr-2"
+                type="button"
                 onClick={() => setMostrarModalCrearCliente(false)}
               >
                 Salir

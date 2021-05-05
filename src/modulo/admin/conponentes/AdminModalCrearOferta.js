@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import { postOferta } from "../../../services/ofertasService";
 import Swal from "sweetalert2";
+import { getEmpleado } from "../../../services/empleadoService";
+
 const formularioVacio = {
   dniEmpleado: "",
   diaDeOferta: "",
@@ -13,6 +15,12 @@ const AdminModalCrearOferta = ({
   setMostrarModalCrearOferta,
   traerOferta,
 }) => {
+  const [objEmpleado, setObjEmpleado] = useState([]);
+  useEffect(() => {
+    getEmpleado().then((respuesta) => {
+      setObjEmpleado(respuesta.data);
+    });
+  }, []);
   const [formulario, setFormulario] = useState({ ...formularioVacio });
   const handleChange = (e) => {
     setFormulario({
@@ -51,7 +59,17 @@ const AdminModalCrearOferta = ({
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label for="input__DNI">DNI Empleado</label>
-                <input
+                <select className="form-control">
+                  {objEmpleado.map((rpta) => {
+                    return (
+                      <option key={rpta.id} value={rpta.dni}>
+                        {rpta.apellidoPaterno}
+                      </option>
+                    );
+                  })}
+                </select>
+
+                {/* <input
                   type="number"
                   className="form-control"
                   id="input__DNI"
@@ -59,7 +77,7 @@ const AdminModalCrearOferta = ({
                   value={formulario.dniEmpleado}
                   name="dniEmpleado"
                   onChange={handleChange}
-                />
+                /> */}
               </div>
               <div className="form-group col-md-6">
                 <label for="input_DiaDOferta">Día de Oferta</label>
@@ -111,6 +129,7 @@ const AdminModalCrearOferta = ({
               </button>
               <button
                 className="btn btn-colorado mr-2"
+                type="button"
                 onClick={() => setMostrarModalCrearOferta(false)}
               >
                 Salir

@@ -94,6 +94,7 @@ const AdminModalCarritoDetalle = ({
               <MDBBtn
                 onClick={() => setMostrarModalCarritoDetail(false)}
                 className="btn btn-colorado mr-2"
+                type="button"
               >
                 Salir
               </MDBBtn>

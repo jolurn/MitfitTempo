@@ -15,10 +15,10 @@ const Dashboard = () => {
     getCarrito().then((rpta) => {
       rpta.data.map((objCarrito) => {
         objCarrito.ofertas.map((objCostos) => {
-          suma += +objCostos.costo;
-          setTotalIngreso(suma);
+          suma += objCostos.costo;
         });
       });
+      setTotalIngreso((suma + suma * 0.18).toFixed(2));
     });
   }, []);
 

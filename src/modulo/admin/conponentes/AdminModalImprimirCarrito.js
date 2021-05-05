@@ -97,7 +97,7 @@ const AdminModalImprimirCarrito = ({
                         <div className="sub-price">
                           <small>I.G.V. (18%)</small>
                           <span className="text-inverse">
-                            S/. {SubTotal * 0.18}
+                            S/. {(SubTotal * 0.18).toFixed(2)}
                           </span>
                         </div>
                       </div>
@@ -143,7 +143,11 @@ const AdminModalImprimirCarrito = ({
           </div>
         </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn className="btn-colorado" onClick={() => setModal(false)}>
+          <MDBBtn
+            type="button"
+            className="btn-colorado"
+            onClick={() => setModal(false)}
+          >
             Salir
           </MDBBtn>
           <ReactToPrint

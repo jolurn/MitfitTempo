@@ -232,6 +232,7 @@ const AdminModalEditarEmpleado = ({
                 </button>
                 <button
                   className="btn btn-colorado mr-2"
+                  type="button"
                   onClick={() => setMostrarModalEditarEmpleado(false)}
                 >
                   Salir

@@ -233,6 +233,7 @@ const AdminModalCrearEmpleado = ({
               </button>
               <button
                 className="btn btn-colorado mr-2"
+                type="button"
                 onClick={() => setMostrarModalCrearEmpleado(false)}
               >
                 Salir
