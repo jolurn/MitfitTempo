@@ -59,11 +59,20 @@ const AdminModalCrearOferta = ({
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label for="input__DNI">DNI Empleado</label>
-                <select className="form-control">
+                <select
+                  className="form-control"
+                  name="dniEmpleado"
+                  onChange={handleChange}
+                >
+                  <option value="0">--Empleado--</option>
                   {objEmpleado.map((rpta) => {
                     return (
                       <option key={rpta.id} value={rpta.dni}>
-                        {rpta.apellidoPaterno}
+                        {rpta.apellidoPaterno +
+                          " " +
+                          rpta.apellidoMaterno +
+                          " " +
+                          rpta.primerNombre}
                       </option>
                     );
                   })}

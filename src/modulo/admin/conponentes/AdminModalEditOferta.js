@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { putOfertaById } from "../../../services/ofertasService";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import Swal from "sweetalert2";
+import { getEmpleado } from "../../../services/empleadoService";
 
 const AdminModalEditOferta = ({
   mostrarModalEditarOferta,
@@ -9,6 +10,13 @@ const AdminModalEditOferta = ({
   objOfertaEditar,
   traerOferta,
 }) => {
+  const [objEmpleado, setObjEmpleado] = useState([]);
+  useEffect(() => {
+    getEmpleado().then((respuesta) => {
+      setObjEmpleado(respuesta.data);
+    });
+  }, []);
+
   const [formulario, setFormulario] = useState(objOfertaEditar);
   const handleChange = (e) => {
     setFormulario({
@@ -60,7 +68,25 @@ const AdminModalEditOferta = ({
                 </div>
                 <div className="form-group col-md-6">
                   <label for="input__DNI">DNI Empleado</label>
-                  <input
+                  <select
+                    className="form-control"
+                    name="dniEmpleado"
+                    onChange={handleChange}
+                  >
+                    <option value="0">--Empleado--</option>
+                    {objEmpleado.map((rpta) => {
+                      return (
+                        <option key={rpta.id} value={rpta.dni}>
+                          {rpta.apellidoPaterno +
+                            " " +
+                            rpta.apellidoMaterno +
+                            " " +
+                            rpta.primerNombre}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  {/* <input
                     type="number"
                     className="form-control"
                     id="input__DNI"
@@ -68,7 +94,7 @@ const AdminModalEditOferta = ({
                     value={formulario.dniEmpleado}
                     name="dniEmpleado"
                     onChange={handleChange}
-                  />
+                  /> */}
                 </div>
                 <div className="form-group col-md-6">
                   <label for="input_DiaDOferta">Día de Oferta</label>
