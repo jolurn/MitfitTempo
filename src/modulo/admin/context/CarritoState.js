@@ -7,9 +7,8 @@ const CarritoState = (props) => {
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
   const [idCarrito, setIdCarrito] = useState(0);
-  const [mostrarModalCarritoDetail, setMostrarModalCarritoDetail] = useState(
-    false
-  );
+  const [mostrarModalCarritoDetail, setMostrarModalCarritoDetail] =
+    useState(false);
 
   const [objCarritoEditar, setObjCarritoEditar] = useState(null);
 

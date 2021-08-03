@@ -36,7 +36,7 @@ const AdminNavbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="nav navbar-nav ml-auto ">
               <h2>
-                MyFit Tempo <i className="fas fa-dumbbell"></i>
+                MiFit Tempo <i className="fas fa-dumbbell"></i>
               </h2>
             </ul>
           </div>

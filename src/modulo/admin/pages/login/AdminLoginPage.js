@@ -3,6 +3,7 @@ import { postLogin } from "../../../../services/authService";
 import AuthContext from "../../context/authContext";
 import { withRouter } from "react-router-dom";
 import logito from "./../../../../img/logo-gym.png";
+import Swal from "sweetalert2";
 
 const AdminLoginPage = ({ history }) => {
   const [formulario, setFormulario] = useState({
@@ -21,9 +22,23 @@ const AdminLoginPage = ({ history }) => {
     e.preventDefault();
     postLogin(formulario).then((rpta) => {
       if (rpta.data.ok) {
-        //informar la contexto que hemos iniciado sesion
-        iniciarSesionContext(rpta.data.token);
-        history.push("/admin/dashboard");
+        if (rpta.data.usu_tipo === "administrador") {
+          //informar la contexto que hemos iniciado sesion
+          iniciarSesionContext(rpta.data.token);
+          history.push("/admin/dashboard");
+        } else {
+          Swal.fire({
+            text: "Usted no es personal Administrativo",
+            icon: "error",
+            timer: 2000,
+          });
+        }
+      } else {
+        Swal.fire({
+          text: "Email o contraseña es incorrecta",
+          icon: "error",
+          timer: 2000,
+        });
       }
     });
   };
@@ -67,7 +82,7 @@ const AdminLoginPage = ({ history }) => {
                   />
                 </div>
                 <button type="submit" className="btn hambur">
-                  Enviar
+                  Acceso
                 </button>
               </form>
             </div>

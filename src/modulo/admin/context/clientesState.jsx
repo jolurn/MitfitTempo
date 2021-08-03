@@ -11,13 +11,12 @@ const ClientesState = (props) => {
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
   const [totalCliente, setTotalCliente] = useState(0);
-  const [mostrarModalCrearCliente, setMostrarModalCrearCliente] = useState(
-    false
-  );
-  const [mostrarModalEditarCliente, setMostrarModalEditarCliente] = useState(
-    false
-  );
+  const [mostrarModalCrearCliente, setMostrarModalCrearCliente] =
+    useState(false);
+  const [mostrarModalEditarCliente, setMostrarModalEditarCliente] =
+    useState(false);
   const [objClienteEditar, setObjClienteEditar] = useState(null);
+
   const eliminarCliente = (id) => {
     Swal.fire({
       title: "¿Seguro que deseas eliminar al Cliente?",
@@ -46,44 +45,20 @@ const ClientesState = (props) => {
         field: "accion",
       },
       {
-        label: "#",
-        field: "posicion",
+        label: "Usuarios",
+        field: "usuario",
       },
       {
-        label: "DNI",
-        field: "dni",
+        label: "Fecha Nacimiento",
+        field: "fechaNacimiento",
       },
       {
-        label: "Primer Nombre",
-        field: "primerNombre",
+        label: "Distrito",
+        field: "distrito",
       },
       {
-        label: "Segundo Nombre",
-        field: "segundoNombre",
-      },
-      {
-        label: "Apellido Paterno",
-        field: "apellidoPaterno",
-      },
-      {
-        label: "Apellido Materno",
-        field: "apellidoMaterno",
-      },
-      {
-        label: "Foto",
-        field: "foto",
-      },
-      {
-        label: "Correo",
-        field: "correo",
-      },
-      {
-        label: "Celular",
-        field: "celular",
-      },
-      {
-        label: "Direccion",
-        field: "direccion",
+        label: "Foto Cliente",
+        field: "fotoCliente",
       },
     ],
     rows: [],
@@ -96,6 +71,21 @@ const ClientesState = (props) => {
           setTotalCliente(i + 1);
           return {
             ...objClient,
+            usuario:
+              objClient.usuarios.primerNombre +
+              " " +
+              objClient.usuarios.segundoNombre +
+              " " +
+              objClient.usuarios.apellidoPaterno +
+              " " +
+              objClient.usuarios.apellidoMaterno,
+            fotoCliente: (
+              <img
+                src={objClient.fotoCliente}
+                width="100"
+                className="imgTabla"
+              />
+            ),
             posicion: i + 1,
             accion: (
               <>

@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { getCarrito } from "../../../../services/carritoService";
-
 import ClientesContext from "../../context/ClientesContext";
 import EmpleadoContext from "../../context/EmpleadoContext";
 import OfertasContext from "../../context/ofertaContext";
+// import UsuarioContext from "../../context/UsuarioContext";
 
 const Dashboard = () => {
   const { totalCliente } = useContext(ClientesContext);
   const { totalEmpleados } = useContext(EmpleadoContext);
   const { totalOfertas } = useContext(OfertasContext);
   const [totalIngresos, setTotalIngreso] = useState(0);
+
   let suma = 0;
   useEffect(() => {
     getCarrito().then((rpta) => {

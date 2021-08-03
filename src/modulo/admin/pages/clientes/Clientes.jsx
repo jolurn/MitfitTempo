@@ -15,7 +15,6 @@ const Clientes = () => {
     mostrarModalCrearCliente,
     setMostrarModalCrearCliente,
   } = useContext(ClientesContext);
-
   return (
     <>
       <div className="container-fluid">

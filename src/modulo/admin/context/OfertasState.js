@@ -12,9 +12,8 @@ const OfertasState = (props) => {
   const [cargando, setCargando] = useState(true);
   const [totalOfertas, setTotalOfertas] = useState(0);
   const [mostrarModalCrearOferta, setMostrarModalCrearOferta] = useState(false);
-  const [mostrarModalEditarOferta, setMostrarModalEditarOferta] = useState(
-    false
-  );
+  const [mostrarModalEditarOferta, setMostrarModalEditarOferta] =
+    useState(false);
   const [objOfertaEditar, setObjOfertaEditar] = useState(null);
   const eliminarOferta = (id) => {
     Swal.fire({
@@ -39,25 +38,25 @@ const OfertasState = (props) => {
   };
   const [datatableOfertas, setDatatableOfertas] = useState({
     columns: [
+      // {
+      //   label: "Acciones",
+      //   field: "accion",
+      // },
       {
-        label: "Acciones",
-        field: "accion",
+        label: "Empleado",
+        field: "empleado",
       },
       {
-        label: "#",
-        field: "posicion",
-      },
-      {
-        label: "Dni Empleado",
-        field: "dniEmpleado",
-      },
-      {
-        label: "Día de Oferta",
-        field: "diaDeOferta",
+        label: "Fecha de Oferta",
+        field: "fechaOferta",
       },
       {
         label: "Hora de Inicio",
-        field: "horaDeInicio",
+        field: "horaInicio",
+      },
+      {
+        label: "Hora Fin",
+        field: "horaFin",
       },
       {
         label: "Costo",
@@ -73,28 +72,36 @@ const OfertasState = (props) => {
           setTotalOfertas(i + 1);
           return {
             ...objOfertas,
+            empleado:
+              objOfertas.empleado.usuarios.primerNombre +
+              " " +
+              objOfertas.empleado.usuarios.segundoNombre +
+              " " +
+              objOfertas.empleado.usuarios.apellidoPaterno +
+              " " +
+              objOfertas.empleado.usuarios.apellidoMaterno,
             posicion: i + 1,
-            accion: (
-              <>
-                <button
-                  className="btn btn-colorado"
-                  onClick={() => {
-                    eliminarOferta(objOfertas.id);
-                  }}
-                >
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-                <button
-                  className="btn btn-palido ml-2"
-                  onClick={() => {
-                    setObjOfertaEditar({ ...objOfertas });
-                    setMostrarModalEditarOferta(true);
-                  }}
-                >
-                  <i class="fas fa-pencil-alt"></i>
-                </button>
-              </>
-            ),
+            // accion: (
+            //   <>
+            //     <button
+            //       className="btn btn-colorado"
+            //       onClick={() => {
+            //         eliminarOferta(objOfertas.id);
+            //       }}
+            //     >
+            //       <i class="fas fa-trash-alt"></i>
+            //     </button>
+            //     <button
+            //       className="btn btn-palido ml-2"
+            //       onClick={() => {
+            //         setObjOfertaEditar({ ...objOfertas });
+            //         setMostrarModalEditarOferta(true);
+            //       }}
+            //     >
+            //       <i class="fas fa-pencil-alt"></i>
+            //     </button>
+            //   </>
+            // ),
           };
         });
         setDatatableOfertas({ ...datatableOfertas, rows: datoFormateado });
@@ -108,7 +115,7 @@ const OfertasState = (props) => {
   return (
     <OfertasContext.Provider
       value={{
-      totalOfertas: totalOfertas,
+        totalOfertas: totalOfertas,
         traerOferta: traerOferta,
         objOfertaEditar: objOfertaEditar,
         setObjOfertaEditar: setObjOfertaEditar,

@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
-import { putClienteById } from "../../../services/clientesService";
+import {
+  getClientes,
+  postUploadImagenByCliente,
+  putClienteById,
+} from "../../../services/clientesService";
 import Swal from "sweetalert2";
-
+import { getUsuarioComboBoxCliente } from "../../../services/authService";
+const formularioVacio = {
+  usuarios: "",
+  fechaNacimiento: "",
+  distrito: "",
+  fotoCliente: "",
+};
 const AdminModalEditCliente = ({
   mostrarModalEditarCliente,
   setMostrarModalEditarCliente,
   objClienteEditar,
   traerClientes,
 }) => {
+  const [objUsuarios, setObjUsuarios] = useState([]);
+  const imagenRef = useRef();
   const [formulario, setFormulario] = useState(objClienteEditar);
   const handleChange = (e) => {
     setFormulario({
@@ -16,21 +28,67 @@ const AdminModalEditCliente = ({
       [e.target.name]: e.target.value,
     });
   };
+
   useEffect(() => {
     setFormulario({ ...objClienteEditar });
   }, [objClienteEditar]);
-
+  useEffect(() => {
+    getUsuarioComboBoxCliente().then((respuesta) => {
+      setObjUsuarios(respuesta.data);
+    });
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    putClienteById(formulario).then((rpta) => {
+
+    const newFormulario = { ...formulario };
+
+    if (imagenRef.current.files.length === 1) {
+      newFormulario.fotoPerfil = "img/" + imagenRef.current.files[0].name;
+    }
+
+    const usuarioEncontrado = objUsuarios.find(
+      (usu) => +usu.id === +formulario.usuarios.id
+    );
+
+    if (+formulario.usuarios.id !== +usuarioEncontrado.id) {
+      newFormulario.usuarios = { ...usuarioEncontrado };
+    }
+
+    putClienteById(newFormulario).then((rpta) => {
       if (rpta.data) {
-        setMostrarModalEditarCliente(false);
-        Swal.fire({
-          text: "Cliente editado correctamente",
-          icon: "success",
-          timer: 2000,
-        });
-        traerClientes();
+        if (imagenRef.current.files.length === 1) {
+          getClientes().then((rpt) => {
+            const clienteencontrado = rpt.data.find(
+              (client) => +client.usuarios.id === +rpta.data.content.usuarios.id
+            );
+            if (clienteencontrado.id) {
+              postUploadImagenByCliente(
+                imagenRef.current.files[0],
+                clienteencontrado.id
+              ).then((rpta2) => {
+                if (rpta2.data) {
+                  setMostrarModalEditarCliente(false);
+                  setFormulario(formularioVacio);
+                  Swal.fire({
+                    text: "Empleado fue actualizado correctamente",
+                    icon: "success",
+                    timer: 2000,
+                  });
+                  traerClientes();
+                }
+              });
+            }
+          });
+        } else {
+          setMostrarModalEditarCliente(false);
+          setFormulario(formularioVacio);
+          Swal.fire({
+            text: "Empleado fue actualizado correctamente",
+            icon: "success",
+            timer: 2000,
+          });
+          traerClientes();
+        }
       }
     });
   };
@@ -48,130 +106,71 @@ const AdminModalEditCliente = ({
           {formulario ? (
             <form onSubmit={handleSubmit}>
               <div className="form-row">
-                <div className="form-group col-md-12">
-                  <label for="input__id">id</label>
-                  <input
-                    disabled
-                    type="text"
-                    className="form-control"
-                    id="input__id"
-                    value={formulario.id}
-                  />
-                </div>
                 <div className="form-group col-md-6">
-                  <label for="input__DNI">DNI</label>
-                  <input
-                    type="number"
+                  <label for="input__usuarios">Usuario</label>
+                  <select
                     className="form-control"
-                    id="input__DNI"
-                    placeholder="Ejm: 84512754"
-                    value={formulario.dni}
-                    name="dni"
+                    name="usuarios"
                     onChange={handleChange}
-                  />
+                  >
+                    <option value="0">--Usuarios--</option>
+                    {objUsuarios.map((rpta) => {
+                      return (
+                        <option key={rpta.id} value={rpta.id}>
+                          {rpta.primerNombre +
+                            " " +
+                            rpta.segundoNombre +
+                            " " +
+                            rpta.apellidoPaterno +
+                            " " +
+                            rpta.apellidoMaterno}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="input_Nombre">Primer Nombre</label>
+                  <label for="input_Nombre">Fecha Nacimiento</label>
                   <input
-                    type="text"
+                    type="date"
                     className="form-control"
-                    id="input_Nombre"
-                    placeholder="Ejm: Jorge"
-                    value={formulario.primerNombre}
-                    name="primerNombre"
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label for="input__SegNombre">Segundo Nombre</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="input__SegNombre"
-                    placeholder="Ejm: Luis"
-                    value={formulario.segundoNombre}
-                    name="segundoNombre"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label for="input_ApPaterno">Apellido Paterno</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="input_ApPaterno"
-                    placeholder="Ejm: Ramos"
-                    value={formulario.apellidoPaterno}
-                    name="apellidoPaterno"
+                    id="input_fechaNacimiento"
+                    placeholder="Ejm: 2020-07-25"
+                    value={formulario.fechaNacimiento}
+                    name="fechaNacimiento"
                     onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label for="input__ApMaterno">Apellido Materno</label>
+                  <label for="input__SegNombre">Distrito</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="input__ApMaterno"
-                    placeholder="Ejm: Nolasco"
-                    value={formulario.apellidoMaterno}
-                    name="apellidoMaterno"
+                    id="input__distrito"
+                    placeholder="Ejm: San Juan de Lurigancho"
+                    value={formulario.distrito}
+                    name="distrito"
                     onChange={handleChange}
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="input_LinkFoto">Link de Foto</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="input_LinkFoto"
-                    placeholder="Ejm: https://n9.cl/bq2lk"
-                    value={formulario.foto}
-                    name="foto"
-                    onChange={handleChange}
-                  />
+                  <div class="input-group-prepend">
+                    <label for="input__fotoPerfil">Foto Perfil</label>
+                  </div>
+                  <div class="custom-file">
+                    <input
+                      type="file"
+                      ref={imagenRef}
+                      class="custom-file-input"
+                      id="inputGroupFile01"
+                    />
+                    <label class="custom-file-label" for="inputGroupFile01">
+                      Elija el archivo
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label for="input__Correo">Correo</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="input__Correo"
-                    placeholder="Ejm: jramosn@uni.edu.pe"
-                    value={formulario.correo}
-                    name="correo"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label for="input__Celular">Celular</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="input__Celular"
-                    placeholder="Ejm: 970318010"
-                    value={formulario.celular}
-                    name="celular"
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label for="input__Direccion">Direción</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="input__Direccion"
-                  placeholder="Ejm: Mz f3 lt4 10 de Octubre II Etapa San Juan de Lurigancho Lima"
-                  value={formulario.direccion}
-                  name="direccion"
-                  onChange={handleChange}
-                />
               </div>
               <div className="form-group d-flex flex-row-reverse">
                 <button className="btn btn-palido" type="submit">

@@ -11,12 +11,10 @@ const EmpleadoState = (props) => {
   const [sombr, setSombr] = useState("overlay");
   const [cargando, setCargando] = useState(true);
   const [totalEmpleados, setTotalEmpleados] = useState(0);
-  const [mostrarModalCrearEmpleado, setMostrarModalCrearEmpleado] = useState(
-    false
-  );
-  const [mostrarModalEditarEmpleado, setMostrarModalEditarEmpleado] = useState(
-    false
-  );
+  const [mostrarModalCrearEmpleado, setMostrarModalCrearEmpleado] =
+    useState(false);
+  const [mostrarModalEditarEmpleado, setMostrarModalEditarEmpleado] =
+    useState(false);
   const [objEmpleadoEditar, setObjEmpleadoEditar] = useState(null);
   const eliminarEmpleado = (id) => {
     Swal.fire({
@@ -46,60 +44,32 @@ const EmpleadoState = (props) => {
         field: "accion",
       },
       {
-        label: "#",
-        field: "posicion",
+        label: "Usuario",
+        field: "usuario",
       },
       {
-        label: "DNI",
-        field: "dni",
+        label: "distrito",
+        field: "distrito",
       },
       {
-        label: "Primer Nombre",
-        field: "primerNombre",
-      },
-      {
-        label: "Segundo Nombre",
-        field: "segundoNombre",
-      },
-      {
-        label: "Apellido Paterno",
-        field: "apellidoPaterno",
-      },
-      {
-        label: "Apellido Materno",
-        field: "apellidoMaterno",
-      },
-      {
-        label: "Contraseña",
-        field: "contrasena",
-      },
-      {
-        label: "Profesion",
+        label: "profesion",
         field: "profesion",
       },
       {
-        label: "LinkFoto",
-        field: "linkFoto",
-      },
-      {
-        label: "Descripcion",
+        label: "descripcion",
         field: "descripcion",
       },
       {
-        label: "Correo",
-        field: "correo",
+        label: "Foto de Perfil",
+        field: "fotoPerfil",
       },
       {
-        label: "Celular",
-        field: "celular",
+        label: "Foto de Banner",
+        field: "fotoBanner",
       },
       {
-        label: "Direccion",
-        field: "direccion",
-      },
-      {
-        label: "Distrito",
-        field: "distrito",
+        label: "Video",
+        field: "video",
       },
     ],
     rows: [],
@@ -111,6 +81,37 @@ const EmpleadoState = (props) => {
           setTotalEmpleados(i + 1);
           return {
             ...objEmpleado,
+            usuario:
+              objEmpleado.usuarios.primerNombre +
+              " " +
+              objEmpleado.usuarios.segundoNombre +
+              " " +
+              objEmpleado.usuarios.apellidoPaterno +
+              " " +
+              objEmpleado.usuarios.apellidoMaterno,
+            fotoPerfil: (
+              <img
+                src={objEmpleado.fotoPerfil}
+                width="100"
+                className="imgTabla"
+              />
+            ),
+            fotoBanner: (
+              <img
+                src={objEmpleado.fotoBanner}
+                width="100"
+                className="imgTabla"
+              />
+            ),
+            video: (
+              <video
+                src={objEmpleado.video}
+                width="90"
+                height="150"
+                controls
+                className="imgTabla"
+              ></video>
+            ),
             posicion: i + 1,
             accion: (
               <>

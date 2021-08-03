@@ -42,6 +42,7 @@ const AdminModalEditOferta = ({
       }
     });
   };
+
   return (
     <MDBContainer>
       <MDBModal
@@ -86,15 +87,6 @@ const AdminModalEditOferta = ({
                       );
                     })}
                   </select>
-                  {/* <input
-                    type="number"
-                    className="form-control"
-                    id="input__DNI"
-                    placeholder="Ejm: 84512754"
-                    value={formulario.dniEmpleado}
-                    name="dniEmpleado"
-                    onChange={handleChange}
-                  /> */}
                 </div>
                 <div className="form-group col-md-6">
                   <label for="input_DiaDOferta">Día de Oferta</label>
@@ -145,6 +137,7 @@ const AdminModalEditOferta = ({
                   Guardar Cambios
                 </button>
                 <button
+                  type="button"
                   className="btn btn-colorado mr-2"
                   onClick={() => setMostrarModalEditarOferta(false)}
                 >

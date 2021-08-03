@@ -7,8 +7,8 @@ import { getEmpleado } from "../../../services/empleadoService";
 const formularioVacio = {
   dniEmpleado: "",
   diaDeOferta: "",
-  horaDeInicio: "",
-  costo: "",
+  horaDeInicio: 0,
+  costo: 0,
 };
 const AdminModalCrearOferta = ({
   mostrarModalCrearOferta,
@@ -77,16 +77,6 @@ const AdminModalCrearOferta = ({
                     );
                   })}
                 </select>
-
-                {/* <input
-                  type="number"
-                  className="form-control"
-                  id="input__DNI"
-                  placeholder="Ejm: 84512754"
-                  value={formulario.dniEmpleado}
-                  name="dniEmpleado"
-                  onChange={handleChange}
-                /> */}
               </div>
               <div className="form-group col-md-6">
                 <label for="input_DiaDOferta">Día de Oferta</label>

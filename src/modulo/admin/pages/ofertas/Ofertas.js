@@ -24,7 +24,7 @@ const Ofertas = () => {
           <div className="col-md-12 d-flex justify-content-between">
             <h1>Ofertas</h1>
             <div>
-              <form className="d-flex mt-3">
+              {/* <form className="d-flex mt-3">
                 <div>
                   <MDBBtn
                     onClick={() => setMostrarModalCrearOferta(true)}
@@ -33,7 +33,7 @@ const Ofertas = () => {
                     <i className="fas fa-plus-square"></i>
                   </MDBBtn>
                 </div>
-              </form>
+              </form> */}
             </div>
           </div>
 

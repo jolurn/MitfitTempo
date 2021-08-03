@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  min-height: 810px;
+  height: 100vh;
   background-color: #1e1b24;
 }
 .Fila__Login {

@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.client__body {
+  background-color: #282d40;
+  width: 100%;
+  padding: 20px;
+  height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+  overflow-y: scroll;
+}
+.client__body::-webkit-scrollbar {
+  width: 10px;
+  background: #fafafa;
+}
+.client__body::-webkit-scrollbar-thumb {
+  background: #282d40;
+  border-radius: 7px;
+}
+.navbar__cliente {
+  background-color: #de903b;
+  border-radius: 5px;
+}
+.navbar__colaborador {
+  background-color: #5bcb83;
+  border-radius: 5px;
+}
+.card-title {
+  color: #de903b;
+}
+.logo_perfil {
+  width: 7vh;
+  border-radius: 5px;
+}
+.logo {
+  width: 12vh;
+}
+.pie__de__pagina {
+  background-color: #505364;
+  color: #fff;
+  border-radius: 5px;
+}
+.pie__de__pagina p,
+a {
+  color: white;
+}
+.imgSlider {
+  height: 1000px;
+  width: 3000px;
+  border-radius: 5px;
+}
+.card__categoria {
+  height: 300px;
+}
+.btn-azul-login {
+  background-color: #071726;
+  color: #ffff;
+}
+.btn__azul {
+  background-color: #505364;
+  color: #ffff;
+}
+.btn__mostaza {
+  background-color: #de903b;
+  color: #ffff;
+}
+.btn__hex {
+  background-color: #5bcb83;
+  color: #ffff;
+}
+.pie__año {
+  color: #ffff;
+}
+.modal-lg .modal-content {
+  width: 900px;
+}
+.modal__detalle__body {
+  padding: 20px;
+}
+.card__img {
+  width: 200px;
+  height: 250px;
+}
+.nombre__usuario {
+  color: #ffff;
+}
+.card-img-top {
+  height: 400px;
+}
+.detalle_perfil_cliente {
+  padding: 20px;
+}

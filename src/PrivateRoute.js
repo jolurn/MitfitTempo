@@ -9,12 +9,12 @@ const PrivateRoute = (props) => {
     autenticado ? (
       <Route path={props.path}>{props.children}</Route>
     ) : (
-      <Redirect to="/admin/" />
+      <Redirect to="/" />
     )
   ) : localStorage.getItem("token") ? (
     <div>Cargando...</div>
   ) : (
-    <Redirect to="/admin/" />
+    <Redirect to="/" />
   );
 };
 

@@ -5,6 +5,7 @@ import ClientesContext from "../context/ClientesContext";
 import Carrito from "../pages/carrito/Carrito";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Empleado from "../pages/empleado/AdminEmpleadoPage";
+import Usuario from "../pages/usuario/AdminUsuarioPage";
 import Ofertas from "../pages/ofertas/AdminOfertasPage";
 import FotoPerfil from "./../../../img/jolu.jpg";
 import FotoPerfil2 from "./../../../img/perfil.jpg";
@@ -13,10 +14,11 @@ import Cliente from "./../pages/clientes/AdminClientesPage";
 
 const AdminSidebar = () => {
   const { ...state } = useContext(AuthContext);
+  const { setState } = useContext(AuthContext);
   const { sidebr, setSidebr } = useContext(ClientesContext);
   const { sombr, setSombr } = useContext(ClientesContext);
   let foto;
-  if (state.usu_nom === "Jorge Luis Ramos Nolasco") {
+  if (state.usu_nom === "Jorge Ramos Nolasco") {
     foto = FotoPerfil;
   } else {
     foto = FotoPerfil2;
@@ -33,7 +35,7 @@ const AdminSidebar = () => {
           <i className="fas fa-arrow-left"></i>
         </div>
         <div className="sidebar-header">
-          <h3>MyFit Tempo</h3>
+          <h3>MiFit Tempo</h3>
         </div>
         <div className="d-flex justify-content-center">
           <img src={foto} alt="" className="img__perfil" />
@@ -44,6 +46,9 @@ const AdminSidebar = () => {
             <Link to="/admin/dashboard" aria-expanded="false">
               Home
             </Link>
+          </li>
+          <li onClick={cerrarMenu}>
+            <Link to="/admin/usuario">Usuario</Link>
           </li>
           <li onClick={cerrarMenu}>
             <Link to="/admin/clientes">Cliente</Link>
@@ -60,13 +65,23 @@ const AdminSidebar = () => {
         </ul>
         <ul className="list-unstyled CTAs">
           <li>
-            <a
+            <Link
               href=""
-              onClick={localStorage.removeItem("token")}
+              onClick={() => {
+                localStorage.removeItem("token");
+                setSidebr("");
+                setSombr("overlay");
+                setState({
+                  autenticado: false,
+                  usu_nom: null,
+                  token: null,
+                  cargando: false,
+                });
+              }}
               className="download"
             >
               Salir <i className="fas fa-sign-out-alt"></i>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -74,6 +89,7 @@ const AdminSidebar = () => {
       <Switch>
         <Route path="/clientes" component={Cliente} />
         <Route path="/empleado" component={Empleado} />
+        <Route path="/usuario" component={Usuario} />
         <Route path="/ofertas" component={Ofertas} />
         <Route path="/carrito" component={Carrito} />
         <Route path="/dashboard" component={Dashboard} />

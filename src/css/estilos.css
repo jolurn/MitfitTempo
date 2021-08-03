@@ -9,9 +9,11 @@ p {
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
-  color: #999;
+  color: #fff;
 }
-
+.parrafo_detalle_oferta {
+  color: #1e1b24;
+}
 a,
 a:hover,
 a:focus {
@@ -249,7 +251,13 @@ a.download {
   width: 100%;
   border-radius: 8px;
 }
-
+.colborador_login {
+  height: 100vh;
+}
+.cuerpo_colaborador {
+  background-color: #071726;
+  height: 100vh;
+}
 @media (max-width: 900px) {
   .table_responsiva {
     width: 250%;
@@ -257,4 +265,27 @@ a.download {
     overflow-y: hidden;
     overflow-x: scroll;
   }
+}
+.cuerpo_tarjeta {
+  background-color: #de903b;
+  height: 350px;
+}
+.img_tarjeta {
+  width: 100px;
+}
+.img_tarjeta2 {
+  width: 70px;
+}
+.imgTabla {
+  border-radius: 7px;
+}
+.imgPerfilCliente {
+  border-radius: 7px;
+  width: 100%;
+}
+.logo_login_colaborador {
+  width: 220px;
+}
+.formulario__login {
+  background-color: #5bcb83;
 }
